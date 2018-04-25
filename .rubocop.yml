@@ -1,2 +1,4 @@
 Layout/EndOfLine:
   EnforcedStyle: lf
+Metrics/AbcSize:
+    Max: 16
