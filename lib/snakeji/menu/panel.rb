@@ -10,6 +10,6 @@ class Panel < BasicControl
                           width: @width,
                           height: @height,
                           color: @color)
-    @rects << rect
+    @rect.add
   end
 end
