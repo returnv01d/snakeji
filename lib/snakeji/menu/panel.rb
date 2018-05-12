@@ -1,15 +1,16 @@
-require_relative 'basic_control'
-
-class Panel < BasicControl
-  attr_accessor :rects, :rect
-  def initialize(top_left_x, top_left_y, width, height, color)
-    super(top_left_x, top_left_y, width, height)
+require_relative '../../../lib/snakeji/utility/point'
+class Panel
+  attr_accessor :rect, :bounding_box
+  def initialize(bounding_box, color)
+    @bounding_box = bounding_box
     @color = color
-    @rects = []
-    @rect = Rectangle.new(x: @top_left_x, y: @top_left_y,
-                          width: @width,
-                          height: @height,
+    @rect = Rectangle.new(x: @bounding_box.top_left.x,
+                          y: @bounding_box.top_left.y,
+                          width: @bounding_box.width,
+                          height: @bounding_box.height,
                           color: @color)
-    @rect.add
+    Application.add(@rect)
   end
+
+
 end
