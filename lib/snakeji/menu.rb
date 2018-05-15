@@ -19,15 +19,15 @@ class Menu
 
   def create_view
 
-
-    create_main_panel
     create_button_panel
+    create_main_panel
+
     Application.show
   end
 
   def create_main_panel
     point = Point.new(0, @height_padding)
-    bounding_box = BoundingBox.new(point, @width, @height * (5.0 / 6) - @height_padding)
+    bounding_box = BoundingBox.new(point, @width, @height * (5.0 / 6) - 2 * @height_padding)
     @main_panel = MainPanel.new(bounding_box, @bg_color)
   end
 
