@@ -24,6 +24,7 @@ class KeyPanel
     Point.new(@bounding_box.top_left.x + @bounding_box.width * 1.0 / 12.0,
                       @bounding_box.top_left.y + @bounding_box.height * 1.0 / 9.0 + @bounding_box.height * ((2 * step) / 8.0))
   end
+
   def create_label(offset_point)
     bounding_box = BoundingBox.new(offset_point,
                                    @bounding_box.width * 10.0 / 12.0,
@@ -31,10 +32,11 @@ class KeyPanel
     key_label = KeyLabel.new(bounding_box, "Down", "S", '#454455')
     key_label
   end
+
   def create_close_button
     button_width = @bounding_box.width * 1.0 / 8.0
     button_height = @bounding_box.width * 1.0 / 8.0
-    @close_button =Image.new(
+    @close_button = Image.new(
       x: @bounding_box.top_left.x + @bounding_box.width - button_width,
       y: @bounding_box.top_left.y,
       width: button_width,
