@@ -52,11 +52,14 @@ class MainPanel < Panel
   def create_panels
     2.times do |height_step|
       2.times do |width_step|
-        panel_point = Point.new(@bounding_box.top_left.x + width_step * (@bounding_box.width / 2.0) + @width_padding,
-                                @bounding_box.top_left.y + height_step * (@bounding_box.height / 2.0 + @height_padding))
-        create_panel(panel_point, true)
+        create_panel(create_panel_point(height_step, width_step), true)
       end
     end
+  end
+
+  def create_panel_point(height_step, width_step)
+    Point.new(@bounding_box.top_left.x + width_step * (@bounding_box.width / 2.0) + @width_padding,
+              @bounding_box.top_left.y + height_step * (@bounding_box.height / 2.0 + @height_padding))
   end
 
   def create_panel(offset_point, active)

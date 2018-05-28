@@ -13,4 +13,10 @@ module Utility
     end
     result
   end
+
+  def self.center_text(text)
+    text.x -= text.width / 2.0
+    text.y -= text.height / 2.0
+    text
+  end
 end
