@@ -15,27 +15,35 @@ class KeyPanel
   end
 
   def create_labels
-    4.times do | step |
-      @key_labels << create_label(create_point(step))
+    4.times do |step|
+      @key_labels << create_label(create_point(step),
+                                  GameModel.model['MENU']['KEY_LABELS'][step])
     end
   end
 
   def create_point(step)
-    Point.new(@bounding_box.top_left.x + @bounding_box.width * 1.0 / 12.0,
-                      @bounding_box.top_left.y + @bounding_box.height * 1.0 / 9.0 + @bounding_box.height * ((2 * step) / 8.0))
+    key_label_width_padding = @bounding_box.width * GameModel.get_ratio('KEY_PANEL_LABEL_WIDTH_PADDING')
+    key_label_height_padding = @bounding_box.height * GameModel.get_ratio('KEY_PANEL_LABEL_HEIGHT_PADDING')
+    key_label_x = @bounding_box.top_left.x + key_label_width_padding
+    key_label_y = @bounding_box.top_left.y + key_label_height_padding
+    key_label_y = Point.new(key_label_x,
+                      key_label_y + @bounding_box.height * ((2 * step) / 8.0))
   end
 
-  def create_label(offset_point)
+  def create_label(offset_point, label_content)
+    key_label_width = @bounding_box.width * GameModel.get_ratio('KEY_PANEL_LABEL_WIDTH')
+    key_label_height = @bounding_box.height * GameModel.get_ratio('KEY_PANEL_LABEL_HEIGHT')
     bounding_box = BoundingBox.new(offset_point,
-                                   @bounding_box.width * 10.0 / 12.0,
-                                   @bounding_box.height * 1.0 / 8.0)
-    key_label = KeyLabel.new(bounding_box, "Down", "S", '#454455')
+                                   key_label_width,
+                                   key_label_height
+                                   )
+    key_label = KeyLabel.new(bounding_box, label_content, "S", '#454455')
     key_label
   end
 
   def create_close_button
-    button_width = @bounding_box.width * 1.0 / 8.0
-    button_height = @bounding_box.width * 1.0 / 8.0
+    button_width = @bounding_box.width * 1.0 / 12.0
+    button_height = @bounding_box.width * 1.0 / 12.0
     @close_button = Image.new(
       x: @bounding_box.top_left.x + @bounding_box.width - button_width,
       y: @bounding_box.top_left.y,

@@ -4,21 +4,20 @@ require 'json'
 CONFIG_FILE_PATH = 'config.json'
 
 class GameModel
+  attr_accessor :model
   def initialize
     @model = Utility::read_config_to_hash(CONFIG_FILE_PATH)
+    @model['MENU']['RATIOS'].each { |_, value| value = value.to_r.to_f }
   end
 
   @@instance = GameModel.new
-  def self.instance
-    @@instance
+  def self.model
+    @@instance.model
   end
 
-  def get (something)
-    @model[something.to_s]
+  def self.get_ratio(name)
+    @@instance.model['MENU']['RATIOS'][name].to_r.to_f
   end
 
-  def set (what, value)
-    @model[what.to_s] = value
-  end
   private_class_method :new
 end

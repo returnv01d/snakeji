@@ -17,9 +17,10 @@ class KeyLabel
   end
 
   def create_label_rect
+    label_width = @bounding_box.width * GameModel.get_ratio('KEY_LABEL_TEXT_WIDTH')
     @label_rect = Rectangle.new(x: @bounding_box.top_left.x,
                                 y: @bounding_box.top_left.y,
-                                width: @bounding_box.width * 4.0 / 7.0,
+                                width: label_width,
                                 height: @bounding_box.height,
                                 color: @rect_color)
     @label_rect.add
@@ -33,11 +34,14 @@ class KeyLabel
   end
 
   def create_key_rect
-    @key_rect = Rectangle.new(x: @bounding_box.top_left.x + @bounding_box.width * 5.0 / 7.0,
-                              y: @bounding_box.top_left.y,
-                              width: @bounding_box.width * 2.0 / 7.0,
-                              height: @bounding_box.height,
-                              color: @rect_color)
+    key_label_x = @bounding_box.top_left.x + @bounding_box.width * GameModel.get_ratio('KEY_LABEL_KEY_X')
+    @key_rect = Rectangle.new(
+      x: key_label_x,
+      y: @bounding_box.top_left.y,
+      width: @bounding_box.width * 2.0 / 7.0,
+      height: @bounding_box.height,
+      color: @rect_color
+    )
     @key_rect.add
   end
 
