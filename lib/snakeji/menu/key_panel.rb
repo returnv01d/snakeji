@@ -1,8 +1,9 @@
 require_relative '../../../lib/snakeji/utility/point'
 require_relative 'panel'
 require_relative 'key_label'
+require_relative 'bounding_box'
 class KeyPanel
-  attr_accessor :bounding_box, :active
+  attr_accessor :bounding_box, :active, :key_labels
   def initialize(bounding_box, opts = {})
     @bounding_box = bounding_box
     @active = opts[:active] || true
@@ -26,7 +27,7 @@ class KeyPanel
     key_label_height_padding = @bounding_box.height * GameModel.get_ratio('KEY_PANEL_LABEL_HEIGHT_PADDING')
     key_label_x = @bounding_box.top_left.x + key_label_width_padding
     key_label_y = @bounding_box.top_left.y + key_label_height_padding
-    key_label_y = Point.new(key_label_x,
+    Point.new(key_label_x,
                       key_label_y + @bounding_box.height * ((2 * step) / 8.0))
   end
 
@@ -59,6 +60,7 @@ class KeyPanel
       if @close_button.contains?(e.x, e.y)
         @active = !@active
         @panel.rect.color = color
+        @key_labels.each { |label| label.unselect; label.active }
       end
     end
   end
