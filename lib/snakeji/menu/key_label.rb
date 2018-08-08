@@ -1,5 +1,5 @@
 require_relative '../../../lib/snakeji/utility/utility'
-require_relative '../../../lib/snakeji/menu/button'
+require_relative 'Base/button'
 require_relative 'bounding_box'
 class KeyLabel
   include Observable
