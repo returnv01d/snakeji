@@ -2,17 +2,18 @@ require_relative '../../../lib/snakeji/utility/point'
 require_relative 'panel'
 require_relative 'key_label'
 require_relative 'bounding_box'
-class KeyPanel
+class KeyPanel < UIElement
+
+  ACTIVE_COLOR = [1, 0, 0, 1]
+  INACTIVE_COLOR = [0, 0, 1, 1]
   attr_accessor :bounding_box, :active, :key_labels
-  def initialize(bounding_box, opts = {})
-    @bounding_box = bounding_box
-    @active = opts[:active] || true
-    @active_color = opts[:active_color] || [1, 0, 0, 1]
-    @inactive_color = opts[:inactive_color] || [0, 0, 1, 1]
-    @panel = Panel.new(@bounding_box, color)
+  def initialize(opts = {})
+    @parent = opts[:parent]
+    @width = GameModel.model['WINDOW_WIDTH'] / 2.0 - (2 * @parent.width_padding)
+    @height = GameModel.model['WINDOW_HEIGHT'] / 2.0 - @parent.height_padding
+    @bg_color = GameModel.model['MENU']['PLAYER_PANEL_COLOR']
+    super(@width, @height, bg_color: @bg_color)
     @key_labels = []
-    create_close_button
-    create_labels
   end
 
   def create_labels
@@ -43,11 +44,11 @@ class KeyPanel
   end
 
   def create_close_button
-    button_width = @bounding_box.width * 1.0 / 12.0
-    button_height = @bounding_box.width * 1.0 / 12.0
+    button_width = @width * 1.0 / 12.0
+    button_height = @width * 1.0 / 12.0
     @close_button = Image.new(
-      x: @bounding_box.top_left.x + @bounding_box.width - button_width,
-      y: @bounding_box.top_left.y,
+      x: @x + @width - button_width,
+      y: @y,
       width: button_width,
       height: button_height,
       path: '../../assets/menu_close.png'
@@ -65,6 +66,10 @@ class KeyPanel
     end
   end
 
+  def draw(top_left_x, top_left_y)
+    super(top_left_x, top_left_y)
+    create_close_button
+  end
   def color
     if @active
       @active_color
