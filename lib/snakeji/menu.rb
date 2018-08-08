@@ -5,7 +5,9 @@ require_relative 'models/game_model'
 require_relative 'utility/point'
 require_relative 'menu/button_panel'
 require_relative 'menu/main_panel'
-
+require_relative 'menu/Base/ui_element'
+require_relative 'menu/Decorators/border_decoration'
+require_relative 'menu/bottom_button'
 class Menu
   def initialize
     @width = GameModel.model['WINDOW_WIDTH']
@@ -17,22 +19,25 @@ class Menu
   end
 
   def initialize_properties
-    @width_padding = @width * GameModel.get_ratio('WIDTH_PADDING')
-    @height_padding = @height * GameModel.get_ratio('HEIGHT_PADDING')
+    @width_padding = @width * 1.0 / 32.0
+    @height_padding = @height * 1.0 / 24.0
     @main_panel_height = @height * GameModel.get_ratio('MAIN_PANEL_HEIGHT')
   end
 
   def create_view
-    create_button_panel
+   # create_button_panel
     create_main_panel
-
+    thiss = BottomButton.new()
+    thiss.draw(100, 100)
+    puts thiss.class
     Application.show
   end
 
   def create_main_panel
     point = Point.new(0, @height_padding)
     bounding_box = BoundingBox.new(point, @width, @main_panel_height - 2 * @height_padding)
-    @main_panel = MainPanel.new(bounding_box, @bg_color)
+    @main_panel = MainPanel.new()
+    @main_panel.draw(0, @height_padding)
   end
 
   def create_button_panel
