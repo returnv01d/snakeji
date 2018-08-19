@@ -23,8 +23,9 @@
     "BOTTOM_BUTTON_COLOR": "#777777",
     "BOTTOM_BUTTON_BORDER_COLOR": "#000000",
     "BOTTOM_BUTTON_TEXT": "Go!",
-    "KEY_LABEL_BORDER_WIDTH": 5.0,
+    "KEY_LABEL_BORDER_WIDTH": 3.0,
     "KEY_LABELS": ["UP", "DOWN", "LEFT", "RIGHT"],
+    "KEYS": [["w", "s", "a", "d"], ["up", "down", "left", "right"], ["w", "s", "a", "d"], ["w", "s", "a", "d"], ["w", "s", "a", "d"]],
     "RATIOS": {
       "WIDTH_PADDING": "1/32",
       "HEIGHT_PADDING": "1/24",
