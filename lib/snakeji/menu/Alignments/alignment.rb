@@ -1,16 +1,21 @@
 class Alignment
-  def initialize(elements, num_of_rows, num_of_columns, opts = {})
+  def initialize(elements, element_spacing)
     @elements = elements
-    @height_spacing = opts[:height_spacing] || 20
-    @width_spacing = opts[:width_spacing| || 20
-    @num_of_columns = num_of_columns
-    @num_of_rows = num_of_rows
+    @element_spacing = element_spacing
   end
 
-  def render(top_left_x, top_left_y)
-    @num_of_columns.times do |height_step|
-      @num_of_rows.times do |width_step|
-        create_panel(create_panel_point(height_step, width_step))
-      end
+  def draw(top_left_x, top_left_y)
+    @elements.each_with_index do |element, index|
+      element.draw(calculate_element_x(top_left_x, index),
+                   calculate_element_y(top_left_y, index))
+    end
+  end
+
+  def calculate_element_x(top_left_x, index)
+    top_left_x
+  end
+
+  def calculate_element_y(top_left_y, index)
+    top_left_y
   end
 end
