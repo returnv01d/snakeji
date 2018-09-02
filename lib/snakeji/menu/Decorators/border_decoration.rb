@@ -8,7 +8,6 @@ module BorderDecoration
   end
 
   def create_rect
-    puts "create rect"
     create_border
     @rect = Rectangle.new(x: @x + @border_size,
                           y: @y + @border_size,
