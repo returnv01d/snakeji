@@ -3,11 +3,11 @@ class UIElement
   def initialize(width, height, opts = {})
     @height = height
     @width = width
-    puts opts
     @bg_color = opts[:bg_color] || [1, 1, 1, 1]
     @width_padding = opts[:width_padding] || 0
     @width_padding = opts[:height_padding] || 0
     @parent = opts[:parent]
+    @opacity = opts[:opacity] || 1
   end
 
   def draw(top_left_x, top_left_y)
@@ -22,13 +22,15 @@ class UIElement
                           height: @height,
                           width: @width,
                           color: @bg_color)
+    @rect.opacity = @opacity
     @rect.add
   end
 
-  def contains?(point)
+  def contains?(point_x, point_y)
     x = @x
+
     y = @y
-    (x..(x + @width)).cover?(point.x) && (y..(y + @height)).cover?(point.y)
+    (x..(x + @width)).cover?(point_x) && (y..(y + @height)).cover?(point_y)
   end
 
 end
