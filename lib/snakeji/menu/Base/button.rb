@@ -10,12 +10,11 @@ class Button < UIElement
 
     extend(BorderDecoration)
     set_props(opts)
-
     @selected_border_color = opts[:selected_border_color]
     @button_text = text
     @text_size = opts[:text_size] || 15
     @selected = false
-    on_click
+
   end
 
   def create_rect
@@ -30,7 +29,6 @@ class Button < UIElement
                      size: @text_size)
     center_text
     @text.add
-    puts "tworze tekst"
   end
 
   def center_text
@@ -51,13 +49,5 @@ class Button < UIElement
     end
   end
 
-  def on_click
-
-    Application.on :mouse_up do |e|
-      if contains?(Point.new(e.x, e.y))
-        puts "on click"
-      end
-    end
-  end
 
 end
