@@ -1,7 +1,7 @@
 require_relative 'ui_element'
 
 class CompositeUIElement < UIElement
-
+  attr_accessor :sub_elements
   def initialize(width, height, opts = {})
     super(width, height, opts)
     @sub_elements = []
