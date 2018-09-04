@@ -1,5 +1,6 @@
 class UIElement
-  attr_accessor :x, :y, :width, :height, :bg_color, :width_padding, :height_padding, :parent
+  attr_accessor :width, :height, :bg_color, :width_padding, :height_padding
+  attr_reader :x, :y, :parent, :active
   def initialize(width, height, opts = {})
     @height = height
     @width = width
@@ -8,6 +9,7 @@ class UIElement
     @width_padding = opts[:height_padding] || 0
     @parent = opts[:parent]
     @opacity = opts[:opacity] || 1
+    @active = opts[:active].nil? ? true : opts[:active]
   end
 
   def draw(top_left_x, top_left_y)
