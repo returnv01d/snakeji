@@ -1,21 +1,21 @@
-require_relative '../../../lib/snakeji/utility/point'
-require_relative 'panel'
 require_relative 'key_label'
-require_relative 'bounding_box'
+require_relative 'emojii_panel'
+require_relative 'Controllers/key_labels_controller'
+
 class KeyPanel < CompositeUIElement
+  include Observable
+  INACTIVE_COLOR = '#696969'.freeze
+  BG_COLOR = GameModel.model['MENU']['PLAYER_PANEL_COLOR'].freeze
 
-  INACTIVE_COLOR = [0, 0, 1, 1].freeze
-  BG_COLOR = GameModel.model['MENU']['PLAYER_PANEL_COLOR']
-
-  attr_accessor :bounding_box, :active, :key_labels
+  attr_accessor :key_labels, :emojii_panel
   def initialize(id, opts = {})
     @parent = opts[:parent]
-    @active = opts[:active]
     @id = id
     @width = GameModel.model['WINDOW_WIDTH'] / 2.0 - (2 * @parent.width_padding)
     @height = @parent.height / 2.0 - @parent.height_padding
+    super(@width, @height, bg_color: BG_COLOR, parent: @parent, active: opts[:active])
     @bg_color = color
-    super(@width, @height, bg_color: @bg_color, parent: @parent)
+    on_click
     create_sub_elements
   end
 
@@ -39,18 +39,30 @@ class KeyPanel < CompositeUIElement
       if @close_button.contains?(e.x, e.y)
         @active = !@active
         @rect.color = color
-        @sub_elements.each { |label| label.unselect; label.active }
+        changed(true)
+        notify_observers(@active, @emojii_panel)
+        @sub_elements.each(&:hide)
       end
     end
   end
 
-  def create_sub_elements
+  def create_key_labels
+    @key_labels_controller = KeyLabelsController.new
+    key_labels = []
     4.times do |step|
-      @sub_elements << KeyLabel.new(GameModel.model['MENU']['KEY_LABELS'][step],
-                                    GameModel.model['MENU']['KEYS'][@id][step],
-                                    parent: self)
+      key_label = KeyLabel.new(GameModel.model['MENU']['KEY_LABELS'][step],
+                               GameModel.model['MENU']['KEYS'][@id][step],
+                               parent: self)
+      @key_labels_controller << key_label
+      key_labels << key_label
     end
+    key_labels
+  end
 
+  def create_sub_elements
+    @emojii_panel = EmojiiPanel.new(parent: self)
+    @sub_elements += create_key_labels
+    @sub_elements << @emojii_panel
   end
 
   def draw(top_left_x, top_left_y)
@@ -58,8 +70,9 @@ class KeyPanel < CompositeUIElement
     create_close_button
     @width_padding = @width * 1.0 / 12.0
     @height_padding = @height * 1.0 / 12.0
-    alignment = VerticalAlignment.new(@sub_elements, @height * 2.0 / 12.0)
+    alignment = VerticalAlignment.new(@sub_elements, @height_padding * 2)
     alignment.draw(top_left_x + @width_padding, top_left_y + @height_padding)
+
   end
 
   def color
@@ -69,4 +82,5 @@ class KeyPanel < CompositeUIElement
       INACTIVE_COLOR
     end
   end
+
 end
