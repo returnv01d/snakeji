@@ -1,6 +1,7 @@
-require_relative 'button'
-class ButtonPanel
-  def initialize(bounding_box, color)
+require_relative '../menu/Base/composite_ui_element'
+
+class ButtonPanel < CompositeUIElement
+  def initialize(width, height, opts ={})
     @bounding_box = bounding_box
     @color = color
     @button_width = @bounding_box.width * GameModel.get_ratio('BUTTON_PANEL_BUTTON_WIDTH')
@@ -15,7 +16,7 @@ class ButtonPanel
   end
 
   def create_button
-    @button = BorderedButton.new(create_button_bounding_box,
+    @button = Button.new(create_button_bounding_box,
                                  text: 'Go!',
                                  border_width: 2,
                                  border_color: '#000000',

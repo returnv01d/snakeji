@@ -1,0 +1,2 @@
+class EmojiPanel < UIElement
+end
