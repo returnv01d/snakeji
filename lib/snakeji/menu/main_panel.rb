@@ -1,11 +1,12 @@
 require_relative '../menu/Alignments/horizontal_alignment'
 require_relative '../menu/Alignments/vertical_alignment'
 require_relative '../menu/Alignments/table_alignment'
+require_relative '../menu/Controllers/emojii_panels_controller'
 require_relative 'key_panel'
 
 class MainPanel < CompositeUIElement
   BG_COLOR = GameModel.model['MENU']['BG_COLOR']
-
+  attr_accessor :emojii_controller
   def initialize(opts = {})
     @parent = opts[:parent]
     @width = GameModel.model['WINDOW_WIDTH']
@@ -13,24 +14,13 @@ class MainPanel < CompositeUIElement
     super(@width, @height, bg_color: BG_COLOR, parent: @parent)
     @width_padding = 1.0 / 16.0 * @width
     @height_padding = 1.0 / 18.0 * @height
-    @key_labels = []
   end
 
   def create_panel(id, active)
     panel = KeyPanel.new(id, parent: self, active: active)
-    panel.on_click
-    @key_labels += panel.sub_elements
+    panel.add_observer(@emojii_controller, :on_keypanel_change)
+    @emojii_controller << panel.emojii_panel
     add_sub_element(panel)
-  end
-
-  def observe
-    @key_labels.each { |label| label.add_observer(self) }
-  end
-
-  def update(key_label)
-    @key_labels -= [key_label]
-    @key_labels.each(&:unselect)
-    @key_labels << key_label
   end
 
   def draw(top_left_x, top_left_y)
@@ -47,8 +37,8 @@ class MainPanel < CompositeUIElement
   end
 
   def create_panels
+    @emojii_controller = EmojiiPanelsController.new
     create_panel(1, true); create_panel(2, true)
     create_panel(3, false); create_panel(4, false)
-    observe
   end
 end
