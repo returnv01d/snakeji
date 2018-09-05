@@ -1,5 +1,3 @@
-require_relative '../menu/Alignments/horizontal_alignment'
-require_relative '../menu/Alignments/vertical_alignment'
 require_relative '../menu/Alignments/table_alignment'
 require_relative '../menu/Controllers/emojii_panels_controller'
 require_relative 'key_panel'
