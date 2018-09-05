@@ -1,6 +1,5 @@
-require_relative '../../../lib/snakeji/utility/utility'
 require_relative 'Base/button'
-require_relative 'bounding_box'
+
 class KeyLabel < UIElement
   include Observable
   attr_accessor :selected
@@ -15,8 +14,7 @@ class KeyLabel < UIElement
     @label_content = label_content
     @key_content = key_content
     @selected = false
-    @active = true
-    super(@width, @height, opacity: 0)
+    super(@width, @height, opacity: 0, active: @parent.active)
     on_click
     on_key
   end
@@ -52,6 +50,17 @@ class KeyLabel < UIElement
     @label.change_border
   end
 
+  def hide
+    unselect
+    active
+  end
+
+  def select
+    @selected = !@selected
+    @key.change_border
+    @label.change_border
+  end
+
   def draw(top_left_x, top_left_y)
     super(top_left_x, top_left_y)
     @label = create_label
@@ -73,9 +82,6 @@ class KeyLabel < UIElement
     Application.on :mouse_down do |e|
       if contains?(e.x, e.y) && @active
         if e.button == :left
-          @selected = !@selected
-          @key.change_border
-          @label.change_border
           changed(true)
           notify_observers(self)
         end
