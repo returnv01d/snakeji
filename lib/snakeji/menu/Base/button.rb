@@ -7,14 +7,12 @@ class Button < UIElement
   attr_accessor :selected, :border, :text, :on_click
   def initialize(width, height, text = '', opts = {})
     super(width, height, opts)
-
     extend(BorderDecoration)
     set_props(opts)
     @selected_border_color = opts[:selected_border_color]
     @button_text = text
     @text_size = opts[:text_size] || 15
     @selected = false
-
   end
 
   def create_rect
@@ -48,6 +46,4 @@ class Button < UIElement
       @border_color
     end
   end
-
-
 end
