@@ -3,6 +3,7 @@ require_relative 'models/game_model'
 require_relative 'menu/button_panel'
 require_relative 'menu/main_panel'
 require_relative 'menu/bottom_button'
+
 class Menu
 
   attr_accessor :height_padding
