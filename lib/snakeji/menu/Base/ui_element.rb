@@ -1,4 +1,5 @@
 class UIElement
+
   attr_accessor :width, :height, :bg_color, :width_padding, :height_padding
   attr_reader :x, :y, :parent, :active
   def initialize(width, height, opts = {})

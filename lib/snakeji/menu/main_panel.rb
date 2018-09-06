@@ -3,7 +3,9 @@ require_relative '../menu/Controllers/emojii_panels_controller'
 require_relative 'key_panel'
 
 class MainPanel < CompositeUIElement
+
   BG_COLOR = GameModel.model['MENU']['BG_COLOR']
+
   attr_accessor :emojii_controller
   def initialize(opts = {})
     @parent = opts[:parent]

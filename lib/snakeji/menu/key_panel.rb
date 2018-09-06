@@ -4,16 +4,17 @@ require_relative 'Controllers/key_labels_controller'
 
 class KeyPanel < CompositeUIElement
   include Observable
-  INACTIVE_COLOR = '#696969'.freeze
-  BG_COLOR = GameModel.model['MENU']['PLAYER_PANEL_COLOR'].freeze
 
-  attr_accessor :key_labels, :emojii_panel
+  INACTIVE_BG_COLOR = GameModel.model['MENU']['KEY_PANEL_INACTIVE_BG_COLOR'].freeze
+  BG_COLOR = GameModel.model['MENU']['KEY_PANEL_BG_COLOR'].freeze
+
+  attr_accessor :key_labels, :emojii_panel, :INACTIVE_BG_COLOR
   def initialize(key_contents, opts = {})
     @key_contents = key_contents
-    @parent = opts[:parent]
-    @width = GameModel.model['WINDOW_WIDTH'] / 2.0 - (2 * @parent.width_padding)
-    @height = @parent.height / 2.0 - @parent.height_padding
-    super(@width, @height, bg_color: BG_COLOR, parent: @parent, active: opts[:active])
+    parent = opts[:parent]
+    width = GameModel.model['WINDOW_WIDTH'] / 2.0 - (2 * parent.width_padding)
+    height = parent.height / 2.0 - parent.height_padding
+    super(width, height, parent: parent, active: opts[:active])
     @bg_color = color
     on_click
     create_sub_elements
@@ -24,11 +25,11 @@ class KeyPanel < CompositeUIElement
     button_height = @width * 1.0 / 12.0
 
     @close_button = Image.new(
-      x: @x + @width - button_width,
-      y: @y,
-      width: button_width,
-      height: button_height,
-      path: '../../assets/menu_close.png'
+    x: @x + @width - button_width,
+    y: @y,
+    width: button_width,
+    height: button_height,
+    path: '../../assets/menu_close.png'
     )
 
     Application.add(@close_button)
@@ -47,13 +48,13 @@ class KeyPanel < CompositeUIElement
   end
 
   def create_key_labels
-    @key_labels_controller = KeyLabelsController.new
+    key_labels_controller = KeyLabelsController.new
     key_labels = []
     4.times do |step|
       key_label = KeyLabel.new(GameModel.model['MENU']['KEY_LABELS'][step],
-                               @key_contents[step],
-                               parent: self)
-      @key_labels_controller << key_label
+      @key_contents[step],
+      parent: self)
+      key_labels_controller << key_label
       key_labels << key_label
     end
     key_labels
@@ -79,7 +80,7 @@ class KeyPanel < CompositeUIElement
     if @active
       BG_COLOR
     else
-      INACTIVE_COLOR
+      INACTIVE_BG_COLOR
     end
   end
 

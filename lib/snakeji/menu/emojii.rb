@@ -1,12 +1,12 @@
 require_relative 'Decorators/border_decoration'
 require_relative '../../../lib/snakeji/menu/Base/button'
 
-INACTIVE_COLOR = '#696969'.freeze
-BORDER_COLOR = GameModel.model['MENU']['PLAYER_PANEL_COLOR'].freeze
-SELECTED_BORDER_COLOR = '#D3D3D3'.freeze
-
 class Emojii < UIElement
   include Observable
+
+  INACTIVE_BG_COLOR = GameModel.model['MENU']['KEY_PANEL_INACTIVE_BG_COLOR']
+  BORDER_COLOR = GameModel.model['MENU']['KEY_PANEL_BG_COLOR'].freeze
+  SELECTED_BORDER_COLOR = GameModel.model['MENU']['EMOJII_SELECTED_BORDER_COLOR'].freeze
 
   attr_accessor :selected, :gray_out
   def initialize(emojii_path, opts = {})
@@ -26,8 +26,8 @@ class Emojii < UIElement
   end
 
   def create_border
-    Button.new(@width +10,
-               @height+ 10,
+    Button.new(@width + 10,
+               @height + 10,
                '',
                border_color: BORDER_COLOR,
                bg_color: BORDER_COLOR,
@@ -58,8 +58,8 @@ class Emojii < UIElement
       @border.rect.color = BORDER_COLOR
       @border.border.color = BORDER_COLOR
     else
-      @border.rect.color = INACTIVE_COLOR
-      @border.border.color = INACTIVE_COLOR
+      @border.rect.color = INACTIVE_BG_COLOR
+      @border.border.color = INACTIVE_BG_COLOR
       Application.remove(@emojii)
     end
   end

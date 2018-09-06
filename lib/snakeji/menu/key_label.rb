@@ -2,11 +2,12 @@ require_relative 'Base/button'
 
 class KeyLabel < UIElement
   include Observable
-  attr_accessor :selected
-  BG_COLOR = '#454455'.freeze
-  SELECTED_BORDER_COLOR = '#F9EC18'.freeze
+
+  BG_COLOR = GameModel.model['MENU']['KEY_LABEL_BG_COLOR'].freeze
+  SELECTED_BORDER_COLOR = GameModel.model['MENU']['KEY_LABEL_SELECTED_BORDER_COLOR'].freeze
   BORDER_WIDTH = GameModel.model['MENU']['KEY_LABEL_BORDER_WIDTH']
 
+  attr_accessor :selected
   def initialize(label_content, key_content, opts = {})
     @parent = opts[:parent]
     @width = @parent.width * 10.0 / 12.0
