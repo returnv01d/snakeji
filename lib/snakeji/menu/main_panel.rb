@@ -15,7 +15,8 @@ class MainPanel < CompositeUIElement
   end
 
   def create_panel(id, active)
-    panel = KeyPanel.new(id, parent: self, active: active)
+    key_contents = GameModel.model['MENU']['KEYS'][id-1]
+    panel = KeyPanel.new(key_contents, parent: self, active: active)
     panel.add_observer(@emojii_controller, :on_keypanel_change)
     @emojii_controller << panel.emojii_panel
     add_sub_element(panel)
