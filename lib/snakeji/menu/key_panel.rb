@@ -8,9 +8,9 @@ class KeyPanel < CompositeUIElement
   BG_COLOR = GameModel.model['MENU']['PLAYER_PANEL_COLOR'].freeze
 
   attr_accessor :key_labels, :emojii_panel
-  def initialize(id, opts = {})
+  def initialize(key_contents, opts = {})
+    @key_contents = key_contents
     @parent = opts[:parent]
-    @id = id
     @width = GameModel.model['WINDOW_WIDTH'] / 2.0 - (2 * @parent.width_padding)
     @height = @parent.height / 2.0 - @parent.height_padding
     super(@width, @height, bg_color: BG_COLOR, parent: @parent, active: opts[:active])
@@ -51,7 +51,7 @@ class KeyPanel < CompositeUIElement
     key_labels = []
     4.times do |step|
       key_label = KeyLabel.new(GameModel.model['MENU']['KEY_LABELS'][step],
-                               GameModel.model['MENU']['KEYS'][@id][step],
+                               @key_contents[step],
                                parent: self)
       @key_labels_controller << key_label
       key_labels << key_label
