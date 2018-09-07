@@ -5,9 +5,9 @@ class UIElement
   def initialize(width, height, opts = {})
     @height = height
     @width = width
-    @bg_color = opts[:bg_color] || [1, 1, 1, 1]
     @width_padding = opts[:width_padding] || 0
-    @width_padding = opts[:height_padding] || 0
+    @height_padding = opts[:height_padding] || 0
+    @bg_color = opts[:bg_color] || [1, 1, 1, 1]
     @parent = opts[:parent]
     @opacity = opts[:opacity] || 1
     @active = opts[:active].nil? ? true : opts[:active]

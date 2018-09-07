@@ -19,11 +19,11 @@
   "MENU": {
     "BG_COLOR": "#1f1f21",
     "BUTTON_PANEL_COLOR": "#1e5e66",
-    "BOTTOM_BUTTON_COLOR": "#777777",
+    "BOTTOM_BUTTON_BG_COLOR": "#777777",
     "BOTTOM_BUTTON_BORDER_COLOR": "#000000",
     "BOTTOM_BUTTON_TEXT": "Go!",
     "EMOJII_SELECTED_BORDER_COLOR": "#D3D3D3",
-    "KEYS": [["w", "s", "a", "d"], ["up", "down", "left", "right"], ["w", "s", "a", "d"], ["w", "s", "a", "d"], ["w", "s", "a", "d"]],
+    "KEYS": [["w", "s", "a", "d"], ["up", "down", "left", "right"], ["w", "s", "a", "d"], ["w", "s", "a", "d"]],
     "KEY_LABELS": ["UP", "DOWN", "LEFT", "RIGHT"],
     "KEY_LABEL_BG_COLOR": "#454455",
     "KEY_LABEL_BORDER_WIDTH": 3.0,
