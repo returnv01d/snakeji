@@ -10,11 +10,11 @@ class Emojii < UIElement
 
   attr_accessor :selected, :gray_out
   def initialize(emojii_path, opts = {})
+    parent = opts[:parent]
+    height = parent.height - 5
+    width  = height
+    super(width, height, active: parent.active, parent: parent)
     @emojii_path = emojii_path
-    @parent = opts[:parent]
-    @height = @parent.height - 5
-    @width  = @height
-    super(@width, @height, active: @parent.active, parent: @parent)
     @selected = false
     on_click
   end

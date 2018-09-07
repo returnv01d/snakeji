@@ -7,10 +7,10 @@ class EmojiiPanel < CompositeUIElement
   include Observable
   attr_accessor :parent
   def initialize(opts = {})
-    @parent = opts[:parent]
-    @height = @parent.height * 1.0 / 6.0
-    @width = @parent.width * 10.0 / 12.0
-    super(@width, @height, active: @parent.active, bg_color: @parent.bg_color)
+    parent = opts[:parent]
+    height = parent.height * 1.0 / 6.0
+    width = parent.width * 10.0 / 12.0
+    super(width, height, active: parent.active, bg_color: parent.bg_color)
   end
 
   def draw(top_left_x, top_left_y)

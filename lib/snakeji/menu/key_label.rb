@@ -9,13 +9,13 @@ class KeyLabel < UIElement
 
   attr_accessor :selected
   def initialize(label_content, key_content, opts = {})
-    @parent = opts[:parent]
-    @width = @parent.width * 10.0 / 12.0
-    @height = @parent.height * 1.0 / 8.0
+    parent = opts[:parent]
+    width = parent.width * 10.0 / 12.0
+    height = parent.height * 1.0 / 8.0
+    super(width, height, opacity: 0, active: parent.active)
     @label_content = label_content
     @key_content = key_content
     @selected = false
-    super(@width, @height, opacity: 0, active: @parent.active)
     on_click
     on_key
   end

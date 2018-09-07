@@ -8,12 +8,14 @@ class MainPanel < CompositeUIElement
 
   attr_accessor :emojii_controller
   def initialize(opts = {})
-    @parent = opts[:parent]
-    @width = GameModel.model['WINDOW_WIDTH']
-    @height = GameModel.model['WINDOW_HEIGHT'] * 5.0 / 6.0 - 2 * @parent.height_padding
-    super(@width, @height, bg_color: BG_COLOR, parent: @parent)
-    @width_padding = 1.0 / 16.0 * @width
-    @height_padding = 1.0 / 18.0 * @height
+    parent = opts[:parent]
+    width = GameModel.model['WINDOW_WIDTH']
+    height = GameModel.model['WINDOW_HEIGHT'] * 5.0 / 6.0 - 2 * parent.height_padding
+    width_padding = 1.0 / 16.0 * width
+    height_padding = 1.0 / 18.0 * height
+    super(width, height,
+          width_padding: width_padding, height_padding: height_padding,
+          bg_color: BG_COLOR, parent: parent)
   end
 
   def create_panel(id, active)
