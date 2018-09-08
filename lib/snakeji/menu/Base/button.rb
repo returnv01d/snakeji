@@ -46,4 +46,16 @@ class Button < UIElement
       @border_color
     end
   end
+
+  def hide
+    @border.remove
+    @rect.remove
+    @text.remove
+  end
+
+  def show
+    @border.add
+    @rect.add
+    @text.add
+  end
 end
