@@ -5,7 +5,8 @@ class HorizontalAlignment < Alignment
     super(elements, element_spacing)
   end
 
-  def calculate_element_x(top_left_x, index)
-    top_left_x + index * @element_spacing
+  def calculate_element_x(element, index)
+    index.zero? ? @last_x : @last_x += element.width + @element_spacing
   end
+
 end
