@@ -31,8 +31,8 @@ class MainPanel < CompositeUIElement
 
     create_panels
 
-    horizontal_spacing = (@width / 2.0)
-    vertical_spacing = @height / 2.0 + @height_padding
+    horizontal_spacing = (@width / 12.0)
+    vertical_spacing = @height_padding
 
     panels_alignment = TableAlignment.new(@sub_elements, 2,
                                           horizontal_spacing, vertical_spacing)
