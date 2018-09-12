@@ -5,31 +5,30 @@ require_relative 'Controllers/key_labels_controller'
 class KeyPanel < CompositeUIElement
   include Observable
 
-  INACTIVE_BG_COLOR = GameModel.model['MENU']['KEY_PANEL_INACTIVE_BG_COLOR'].freeze
+
   BG_COLOR = GameModel.model['MENU']['KEY_PANEL_BG_COLOR'].freeze
 
-  attr_accessor :key_labels, :emojii_panel, :INACTIVE_BG_COLOR
+  attr_accessor :key_labels, :emojii_panel
   def initialize(key_contents, opts = {})
     parent = opts[:parent]
     width = GameModel.model['WINDOW_WIDTH'] / 2.0 - (2 * parent.width_padding)
     height = parent.height / 2.0 - parent.height_padding
-    super(width, height, parent: parent, active: opts[:active])
+    super(width, height, bg_color: BG_COLOR, parent: parent, active: opts[:active])
     @key_contents = key_contents
-    @bg_color = color
     on_click
     create_sub_elements
   end
 
   def create_close_button
-    button_width = @width * 1.0 / 12.0
-    button_height = @width * 1.0 / 12.0
+    button_width = @width * 1.0 / 14.0
+    button_height = @width * 1.0 / 14.0
 
     @close_button = Image.new(
-    x: @x + @width - button_width,
-    y: @y,
-    width: button_width,
-    height: button_height,
-    path: '../../assets/menu_close.png'
+      x: @x + @width - button_width,
+      y: @y,
+      width: button_width,
+      height: button_height,
+      path: '../../assets/menu_close.png'
     )
 
     Application.add(@close_button)
@@ -39,12 +38,16 @@ class KeyPanel < CompositeUIElement
     Application.on :mouse_up do |e|
       if @close_button.contains?(e.x, e.y)
         @active = !@active
-        @rect.color = color
         changed(true)
         notify_observers(@active, @emojii_panel)
         @sub_elements.each(&:hide)
+        change_color
       end
     end
+  end
+
+  def change_color
+    @rect.color = @active ? BG_COLOR : @parent.bg_color
   end
 
   def create_key_labels
@@ -66,24 +69,18 @@ class KeyPanel < CompositeUIElement
     @emojii_panel = EmojiiPanel.new(parent: self)
     @sub_elements += create_key_labels
     @sub_elements << @emojii_panel
+
   end
 
   def draw(top_left_x, top_left_y)
     super(top_left_x, top_left_y)
+    change_color
     create_close_button
-    @width_padding = @width * 1.0 / 12.0
-    @height_padding = @height * 1.0 / 12.0
-    alignment = VerticalAlignment.new(@sub_elements, @height_padding * 2)
+    @width_padding = @width * 1.0 / 16.0
+    @height_padding = @height * 1.0 / 20.0
+
+    alignment = VerticalAlignment.new(@sub_elements, @height_padding )
     alignment.draw(top_left_x + @width_padding, top_left_y + @height_padding)
-
-  end
-
-  def color
-    if @active
-      BG_COLOR
-    else
-      INACTIVE_BG_COLOR
-    end
   end
 
 end
