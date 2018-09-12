@@ -7,17 +7,18 @@ class Alignment
   def draw(top_left_x, top_left_y)
     @last_x = top_left_x
     @last_y = top_left_y
-    @elements.each_with_index do |element, index|
-      element.draw(calculate_element_x(element, index),
-                   calculate_element_y(element, index))
+    @elements.each do |element|
+      element.draw(@last_x, @last_y)
+      update_last_x element
+      update_last_y element
     end
   end
 
-  def calculate_element_x(element, index)
+  def update_last_x (element)
     @last_x
   end
 
-  def calculate_element_y(element, index)
+  def update_last_y (element)
     @last_y
   end
 

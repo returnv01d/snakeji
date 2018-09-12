@@ -5,7 +5,7 @@ class VerticalAlignment < Alignment
     super(elements, element_spacing)
   end
 
-  def calculate_element_y(element, index)
-    index.zero? ? @last_y : @last_y += element.height + @element_spacing
+  def update_last_y (element)
+    @last_y += element.height + @element_spacing
   end
 end
