@@ -15,7 +15,7 @@ module BorderDecoration
                           height: @height - 2 * @border_size,
                           width: @width - 2 * @border_size,
                           color: @bg_color,
-                          z: 0)
+                          z: @z)
     @rect.add
     super()
   end
@@ -26,7 +26,16 @@ module BorderDecoration
                             height: @height,
                             width: @width,
                             color: @border_color,
-                            z: 0)
+                            z: @z)
     @border.add
+  end
+
+  def remove
+    Application.remove(@rect)
+    Application.remove(@text)
+    Application.remove(@border)
+    @rect = nil
+    @text = nil
+    @border = nil
   end
 end
