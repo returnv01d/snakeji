@@ -7,6 +7,7 @@ class Emojii < UIElement
   INACTIVE_BG_COLOR = GameModel.model['MENU']['KEY_PANEL_INACTIVE_BG_COLOR']
   BORDER_COLOR = GameModel.model['MENU']['KEY_PANEL_BG_COLOR'].freeze
   SELECTED_BORDER_COLOR = GameModel.model['MENU']['EMOJII_SELECTED_BORDER_COLOR'].freeze
+  STARTING_OPACITY = 0.85.freeze
 
   attr_accessor :selected, :gray_out
   def initialize(emojii_path, opts = {})
@@ -22,6 +23,7 @@ class Emojii < UIElement
   def create_emojii
     @emojii = Image.new(path: "../../assets/emojis/#{@emojii_path}.png",
                         width: @width, height: @height)
+    @emojii.opacity = STARTING_OPACITY
     change_visibility
   end
 
@@ -86,11 +88,11 @@ class Emojii < UIElement
 
   def deactivate
     @emojii.opacity = 0.3
-    @emojii.color = '#909090'
+    #@emojii.color = '#909090'
   end
 
   def activate
-    @emojii.opacity = 1.0
-    @emojii.color = '#ffffff'
+    @emojii.opacity = STARTING_OPACITY
+    #@emojii.color = '#ffffff'
   end
 end
