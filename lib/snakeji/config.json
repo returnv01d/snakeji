@@ -17,18 +17,20 @@
   "SPEED_POWER_UP_MODIFIER": 1.0,
   "SPEED_POWER_UP_DURATION": 500.0,
   "MENU": {
-    "BG_COLOR": "#1f1f21",
-    "BUTTON_PANEL_COLOR": "#1e5e66",
-    "BOTTOM_BUTTON_BG_COLOR": "#777777",
-    "BOTTOM_BUTTON_BORDER_COLOR": "#000000",
+    "BG_COLOR": "#54b9ea",
+    "BUTTON_PANEL_COLOR": "#54b9ea",
+    "BOTTOM_BUTTON_BG_COLOR": "#5666eb",
+    "BOTTOM_BUTTON_INACTIVE_BG_COLOR": "#54b9ea",
     "BOTTOM_BUTTON_TEXT": "Go!",
     "EMOJII_SELECTED_BORDER_COLOR": "#D3D3D3",
     "KEYS": [["w", "s", "a", "d"], ["up", "down", "left", "right"], ["w", "s", "a", "d"], ["w", "s", "a", "d"]],
     "KEY_LABELS": ["UP", "DOWN", "LEFT", "RIGHT"],
-    "KEY_LABEL_BG_COLOR": "#454455",
+    "KEY_LABEL_BG_COLOR": "#84CEEB",
     "KEY_LABEL_BORDER_WIDTH": 3.0,
-    "KEY_LABEL_SELECTED_BORDER_COLOR": "#F9EC18",
-    "KEY_PANEL_BG_COLOR": "#3e5e66",
-    "KEY_PANEL_INACTIVE_BG_COLOR": "#696969"
+    "KEY_LABEL_SELECTED_BORDER_COLOR": "#5680E9",
+    "KEY_PANEL_BG_COLOR": "#63b8eb",
+    "KEY_PANEL_INACTIVE_BG_COLOR": "#54b9ea",
+    "MB_BG_COLOR": "#5680E9",
+    "MB_BORDER_COLOR": "#6683FC"
   }
 }
