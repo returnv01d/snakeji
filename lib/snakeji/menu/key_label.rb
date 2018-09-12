@@ -16,8 +16,18 @@ class KeyLabel < UIElement
     @label_content = label_content
     @key_content = key_content
     @selected = false
+    @label = create_label
+    @key = create_key
     on_click
     on_key
+  end
+
+  def show
+    if @active
+      @key.show ; @label.show
+    else
+      @key.hide ; @label.hide
+    end
   end
 
   def active
@@ -26,22 +36,22 @@ class KeyLabel < UIElement
 
   def create_label
     Button.new(@width * 4.0 / 7.0,
-               @height,
-               @label_content,
-               bg_color: BG_COLOR,
-               border_size: BORDER_WIDTH,
-               border_color: BG_COLOR,
-               selected_border_color: SELECTED_BORDER_COLOR)
+    @height,
+    @label_content,
+    bg_color: BG_COLOR,
+    border_size: BORDER_WIDTH,
+    border_color: BG_COLOR,
+    selected_border_color: SELECTED_BORDER_COLOR)
   end
 
   def create_key
     Button.new(@width * 2.0 / 7.0,
-               @height,
-               @key_content,
-               bg_color: BG_COLOR,
-               border_size: BORDER_WIDTH,
-               border_color: BG_COLOR,
-               selected_border_color: SELECTED_BORDER_COLOR)
+    @height,
+    @key_content,
+    bg_color: BG_COLOR,
+    border_size: BORDER_WIDTH,
+    border_color: BG_COLOR,
+    selected_border_color: SELECTED_BORDER_COLOR)
   end
 
   def unselect
@@ -54,6 +64,7 @@ class KeyLabel < UIElement
   def hide
     unselect
     active
+    show
   end
 
   def select
@@ -64,10 +75,9 @@ class KeyLabel < UIElement
 
   def draw(top_left_x, top_left_y)
     super(top_left_x, top_left_y)
-    @label = create_label
-    @key = create_key
     @label.draw(top_left_x, top_left_y)
     @key.draw(top_left_x + @width * 5.0 / 7.0, top_left_y)
+    show
   end
 
   def on_key
