@@ -11,6 +11,7 @@ class UIElement
     @parent = opts[:parent]
     @opacity = opts[:opacity] || 1
     @active = opts[:active].nil? ? true : opts[:active]
+    @z = opts[:z] || 0
   end
 
   def draw(top_left_x, top_left_y)
@@ -24,7 +25,8 @@ class UIElement
                           y: @y,
                           height: @height,
                           width: @width,
-                          color: @bg_color)
+                          color: @bg_color,
+                          z: @z)
     @rect.opacity = @opacity
     @rect.add
   end

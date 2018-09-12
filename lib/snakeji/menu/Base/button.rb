@@ -11,7 +11,7 @@ class Button < UIElement
     set_props(opts)
     @selected_border_color = opts[:selected_border_color]
     @button_text = text
-    @text_size = opts[:text_size] || 15
+    @text_size = opts[:text_size] || 16
     @selected = false
   end
 
@@ -24,7 +24,8 @@ class Button < UIElement
                      y: (@y + (@height / 2)),
                      text: @button_text,
                      font: '../../fonts/Vera.ttf',
-                     size: @text_size)
+                     size: @text_size,
+                     z: @z)
     center_text
     @text.add
   end
