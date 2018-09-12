@@ -19,10 +19,10 @@ class EmojiiPanel < CompositeUIElement
 
     element_width = @sub_elements[1].width
     available_space = @width - element_width * @sub_elements.count
-    element_spacing = element_width + available_space * 1.0 / (@sub_elements.count - 1)
+    element_spacing =  available_space * 1.0 / (@sub_elements.count - 1)
 
     alignment = HorizontalAlignment.new(@sub_elements, element_spacing)
-    alignment.draw(top_left_x, top_left_y + 10)
+    alignment.draw(top_left_x, top_left_y )
   end
 
   def create_sub_elements
