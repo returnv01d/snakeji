@@ -9,7 +9,7 @@ class Emojii < UIElement
   SELECTED_BORDER_COLOR = GameModel.model['MENU']['EMOJII_SELECTED_BORDER_COLOR'].freeze
   STARTING_OPACITY = 0.85.freeze
 
-  attr_accessor :selected, :gray_out
+  attr_accessor :selected, :gray_out, :deactivated
   def initialize(emojii_path, opts = {})
     parent = opts[:parent]
     height = parent.height - 5
@@ -17,6 +17,7 @@ class Emojii < UIElement
     super(width, height, active: parent.active, parent: parent)
     @emojii_path = emojii_path
     @selected = false
+    @deactivated = false
     on_click
   end
 
@@ -24,7 +25,6 @@ class Emojii < UIElement
     @emojii = Image.new(path: "../../assets/emojis/#{@emojii_path}.png",
                         width: @width, height: @height)
     @emojii.opacity = STARTING_OPACITY
-    change_visibility
   end
 
   def create_border
@@ -41,12 +41,13 @@ class Emojii < UIElement
     super(top_left_x, top_left_y)
 
     @border = create_border
-    @border.draw(top_left_x - (10.0 / 2.0), top_left_y - (10 / 2.0))
+    @border.draw(top_left_x - 5, top_left_y - 5)
 
     create_emojii
     @emojii.x = top_left_x
     @emojii.y = top_left_y
 
+    change_visibility
   end
 
   def active
@@ -79,20 +80,24 @@ class Emojii < UIElement
 
   def on_click
     Application.on :mouse_up do |e|
-      if @emojii.contains?(e.x, e.y)
-        changed(true)
-        notify_observers(self)
+      if @emojii.contains?(e.x, e.y) && @active
+          unless deactivated
+            changed(true)
+            notify_observers(self)
+          end
       end
     end
   end
 
   def deactivate
     @emojii.opacity = 0.3
+    @deactivated = true
     #@emojii.color = '#909090'
   end
 
   def activate
     @emojii.opacity = STARTING_OPACITY
+    @deactivated = false
     #@emojii.color = '#ffffff'
   end
 end
