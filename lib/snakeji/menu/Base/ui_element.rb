@@ -7,7 +7,7 @@ class UIElement
     @width = width
     @width_padding = opts[:width_padding] || 0
     @height_padding = opts[:height_padding] || 0
-    @bg_color = opts[:bg_color] || [1, 1, 1, 1]
+    @bg_color = opts[:bg_color] || 'white'
     @parent = opts[:parent]
     @opacity = opts[:opacity] || 1
     @active = opts[:active].nil? ? true : opts[:active]
