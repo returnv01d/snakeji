@@ -59,13 +59,21 @@ class SelectorButton < CompositeUIElement
     Application.on :mouse_down do |e|
       if @left_arrow.contains?(e.x, e.y)
         @options_iterator += 1
-        @text.text = @text_options[@options_iterator % @text_options.size]
+        @text.text = @text_options[current_text_pos]
       elsif @right_arrow.contains?(e.x, e.y)
         @options_iterator -= 1
-        @text.text = @text_options[@options_iterator % @text_options.size]
+        @text.text = @text_options[current_text_pos]
       end
 
       center_text
     end
+  end
+
+  def current_text_pos
+    @options_iterator % @text_options.size
+  end
+
+  def current_option
+    @text_options[current_text_pos]
   end
 end
