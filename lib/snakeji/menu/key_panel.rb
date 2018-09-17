@@ -38,8 +38,6 @@ class KeyPanel < CompositeUIElement
     Application.on :mouse_up do |e|
       if @close_button.contains?(e.x, e.y)
         @active = !@active
-        changed(true)
-        notify_observers(@active, @emojii_panel)
         @sub_elements.each(&:hide)
         change_color
       end
@@ -52,24 +50,38 @@ class KeyPanel < CompositeUIElement
 
   def create_key_labels
     key_labels_controller = KeyLabelsController.new
-    key_labels = []
+    @key_labels = []
 
     4.times do |step|
       key_label = KeyLabel.new(GameModel.model['MENU']['KEY_LABELS'][step],
                                @key_contents[step],
                                parent: self)
       key_labels_controller << key_label
-      key_labels << key_label
+      @key_labels << key_label
     end
 
-    key_labels
+    @key_labels
   end
 
   def create_sub_elements
     @emojii_panel = EmojiiPanel.new(parent: self)
     @sub_elements += create_key_labels
     @sub_elements << @emojii_panel
+  end
 
+  def activate_first_free_emojii
+    @emojii_panel.activate_first_free_emojii
+  end
+
+  def player_keys
+    player_keys = {}
+
+    @key_labels.each{|label|
+      key_label = label.key_label
+      key_value = label.current_key
+      player_keys[key_label.intern] = key_value # intern converts string to symbol
+    }
+    player_keys
   end
 
   def draw(top_left_x, top_left_y)
@@ -79,7 +91,7 @@ class KeyPanel < CompositeUIElement
     @width_padding = @width * 1.0 / 16.0
     @height_padding = @height * 1.0 / 20.0
 
-    alignment = VerticalAlignment.new(@sub_elements, @height_padding )
+    alignment = VerticalAlignment.new(@sub_elements, @height_padding)
     alignment.draw(top_left_x + @width_padding, top_left_y + @height_padding)
   end
 
