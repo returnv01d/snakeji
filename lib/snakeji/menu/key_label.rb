@@ -39,9 +39,9 @@ class KeyLabel < UIElement
     @height,
     @label_content,
     bg_color: BG_COLOR,
-    border_size: BORDER_WIDTH,
-    border_color: BG_COLOR,
-    selected_border_color: SELECTED_BORDER_COLOR)
+     border_size: BORDER_WIDTH,
+     border_color: BG_COLOR,
+     selected_border_color: SELECTED_BORDER_COLOR)
   end
 
   def create_key
@@ -49,9 +49,9 @@ class KeyLabel < UIElement
     @height,
     @key_content,
     bg_color: BG_COLOR,
-    border_size: BORDER_WIDTH,
-    border_color: BG_COLOR,
-    selected_border_color: SELECTED_BORDER_COLOR)
+     border_size: BORDER_WIDTH,
+     border_color: BG_COLOR,
+     selected_border_color: SELECTED_BORDER_COLOR)
   end
 
   def unselect
@@ -65,6 +65,14 @@ class KeyLabel < UIElement
     unselect
     active
     show
+  end
+
+  def current_key
+    @key.text.text
+  end
+
+  def key_label
+    @label.text.text
   end
 
   def select
