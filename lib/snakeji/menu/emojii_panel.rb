@@ -37,6 +37,7 @@ class EmojiiPanel < CompositeUIElement
     @active = !@active
     @sub_elements.each(&:active)
     unselect_emojii_at(@selected_emojii_pos) unless @selected_emojii_pos.nil?
+    activate_first_free_emojii
   end
 
 
@@ -69,5 +70,12 @@ class EmojiiPanel < CompositeUIElement
     @sub_elements[index].send(func)
   end
 
- 
+  def activate_first_free_emojii
+    return unless @active
+
+    free_emojiis = @sub_elements.reject(&:deactivated)
+    first_free_emojii_pos = @sub_elements.find_index(free_emojiis.first)
+
+    select_emojii_at(first_free_emojii_pos)
+  end
 end
