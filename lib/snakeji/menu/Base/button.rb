@@ -12,6 +12,7 @@ class Button < UIElement
     @selected_border_color = opts[:selected_border_color]
     @button_text = text
     @text_size = opts[:text_size] || 16
+    @text_color = opts[:text_color] || 'white'
     @selected = false
   end
 
@@ -25,6 +26,7 @@ class Button < UIElement
                      text: @button_text,
                      font: '../../fonts/Vera.ttf',
                      size: @text_size,
+                     color: @text_color,
                      z: @z)
     center_text
     @text.add
