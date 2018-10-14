@@ -1,7 +1,7 @@
 require 'ruby2d'
 require 'observer'
-require_relative '../Decorators/border_decoration'
-require_relative 'ui_element'
+require_relative '../../menu/Base/ui_element.rb'
+#require_relative '../Decorators/border_decoration'
 
 class Button < UIElement
   attr_accessor :selected, :border, :text, :on_click
