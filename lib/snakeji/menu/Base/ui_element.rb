@@ -1,3 +1,4 @@
+#require_relative '../../menu.rb'
 class UIElement
 
   attr_accessor :width, :height, :bg_color, :width_padding, :height_padding
