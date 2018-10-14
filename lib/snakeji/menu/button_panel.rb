@@ -5,8 +5,8 @@ class ButtonPanel < CompositeUIElement
   attr_reader :start_button
   def initialize(opts = {})
     parent = opts[:parent]
-    width = GameModel.model['WINDOW_WIDTH']
-    height = GameModel.model['WINDOW_HEIGHT'] * 1.0 / 6.0 + 2 * parent.height_padding
+    width = GameModel.model['MENU']['WINDOW_WIDTH']
+    height = GameModel.model['MENU']['WINDOW_HEIGHT'] * 1.0 / 6.0 + 2 * parent.height_padding
     super(width, height, bg_color: BG_COLOR, parent: parent)
     create_sub_elements
 
@@ -28,8 +28,12 @@ class ButtonPanel < CompositeUIElement
     @selector_button.draw(button_x, button_y)
   end
 
-  def current_resolution
-    @selector_button.current_option
+  def current_resolution_width
+    @selector_button.current_option[0]
+  end
+
+  def current_resolution_height
+    @selector_button.current_option[1]
   end
 
 end
