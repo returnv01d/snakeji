@@ -74,6 +74,6 @@ class SelectorButton < CompositeUIElement
   end
 
   def current_option
-    @text_options[current_text_pos]
+    @text_options[current_text_pos].split('x').map(&:to_i)
   end
 end
