@@ -4,8 +4,8 @@ require 'timeout'
 class MessageBox
   include Observable
 
-  MB_WIDTH = GameModel.model['WINDOW_WIDTH'] / 3.0
-  MB_HEIGHT = GameModel.model['WINDOW_HEIGHT'] / 6.0
+  MB_WIDTH = GameModel.model['MENU']['WINDOW_WIDTH'] / 2.0
+  MB_HEIGHT = GameModel.model['MENU']['WINDOW_HEIGHT'] / 4.0
   MB_BG_COLOR = GameModel.model['MENU']['MB_BG_COLOR']
   MB_BORDER_COLOR = GameModel.model['MENU']['MB_BORDER_COLOR']
   BUTTON_WIDTH = MB_WIDTH / 3.0
