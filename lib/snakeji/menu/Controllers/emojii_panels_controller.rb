@@ -25,4 +25,11 @@ class EmojiiPanelsController < ElementsController
     emojii_panels.each { |ep| ep.change_emojii_at(emojii_pos, func) }
   end
 
+  def selected_emojiis
+    emojiis = []
+    active_panels = @emojii_panels.select(&:active)
+    active_panels.each{ |ep| emojiis << ep.selected_emojii }
+    emojiis
+  end
+
 end
