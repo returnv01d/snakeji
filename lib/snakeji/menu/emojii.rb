@@ -10,19 +10,20 @@ class Emojii < UIElement
   STARTING_OPACITY = 0.85.freeze
 
   attr_accessor :selected, :gray_out, :deactivated
+  attr_reader :path
   def initialize(emojii_path, opts = {})
     parent = opts[:parent]
     height = parent.height - 5
     width  = height
     super(width, height, active: parent.active, parent: parent)
-    @emojii_path = emojii_path
+    @path = emojii_path
     @selected = false
     @deactivated = false
     on_click
   end
 
   def create_emojii
-    @emojii = Image.new(path: "../../assets/emojis/#{@emojii_path}.png",
+    @emojii = Image.new(path: "../../assets/emojis/#{@path}.png",
                         width: @width, height: @height)
     @emojii.opacity = STARTING_OPACITY
   end
