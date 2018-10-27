@@ -1,6 +1,7 @@
 require_relative 'key_label'
 require_relative 'emojii_panel'
 require_relative 'Controllers/key_labels_controller'
+require_relative 'Base/composite_ui_element'
 
 class KeyPanel < CompositeUIElement
   include Observable
@@ -11,7 +12,7 @@ class KeyPanel < CompositeUIElement
   attr_accessor :key_labels, :emojii_panel
   def initialize(key_contents, opts = {})
     parent = opts[:parent]
-    width = GameModel.model['WINDOW_WIDTH'] / 2.0 - (2 * parent.width_padding)
+    width = GameModel.model['MENU']['WINDOW_WIDTH'] / 2.0 - (2 * parent.width_padding)
     height = parent.height / 2.0 - parent.height_padding
     super(width, height, bg_color: BG_COLOR, parent: parent, active: opts[:active])
     @key_contents = key_contents
@@ -31,7 +32,7 @@ class KeyPanel < CompositeUIElement
       path: '../../assets/menu_close.png'
     )
 
-    Application.add(@close_button)
+    @close_button.add
   end
 
   def on_click
