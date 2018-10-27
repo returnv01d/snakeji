@@ -6,8 +6,8 @@ class BottomButton < Button
   TEXT = GameModel.model['MENU']['BOTTOM_BUTTON_TEXT']
 
   def initialize
-    width = GameModel.model['WINDOW_WIDTH'] * (1.0 / 10.0)
-    height = GameModel.model['WINDOW_HEIGHT'] * (1.0 / 16.0)
+    width = GameModel.model['MENU']['WINDOW_WIDTH'] * (1.0 / 10.0)
+    height = GameModel.model['MENU']['WINDOW_HEIGHT'] * (1.0 / 16.0)
     text_size = 18
     super(width, height, TEXT, bg_color: BG_COLOR, border_color: BG_COLOR, text_size: text_size)
     on_mouse_move
