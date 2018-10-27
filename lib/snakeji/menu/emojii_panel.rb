@@ -40,7 +40,6 @@ class EmojiiPanel < CompositeUIElement
     activate_first_free_emojii
   end
 
-
   def on_emojii_click (emojii)
     emojii_pos = @sub_elements.find_index(emojii)
 
@@ -77,5 +76,10 @@ class EmojiiPanel < CompositeUIElement
     first_free_emojii_pos = @sub_elements.find_index(free_emojiis.first)
 
     select_emojii_at(first_free_emojii_pos)
+  end
+
+  def selected_emojii
+    return nil if @selected_emojii_pos.nil?
+    @sub_elements[@selected_emojii_pos].path
   end
 end
