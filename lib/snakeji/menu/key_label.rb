@@ -1,4 +1,5 @@
 require_relative 'Base/button'
+require_relative '../menu/Base/ui_element'
 
 class KeyLabel < UIElement
   include Observable

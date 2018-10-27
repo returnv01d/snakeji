@@ -1,3 +1,4 @@
+require 'json'
 
 module Utility
   def self.read_config_to_hash(file_path)
