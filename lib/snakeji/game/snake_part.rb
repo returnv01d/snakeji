@@ -14,6 +14,10 @@ class SnakePart
     @part.y = y
   end
 
+  def height
+    @width
+  end
+
   def x
     @part.x
   end
@@ -34,6 +38,10 @@ class SnakePart
   def out_of_window?
     @part.x < 0 || @part.x + @width > GameModel.model['GAME']['WINDOW_WIDTH'] ||
       @part.y < 0 || @part.y + @width > GameModel.model['GAME']['WINDOW_HEIGHT']
+  end
+
+  def contains?(other)
+    (@part.x >= other.x && @part.x <= other.x + other.width) || (@part.y >= other.y && @part.y <= other.y + other.height)
   end
 
 end
