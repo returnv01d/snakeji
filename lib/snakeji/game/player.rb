@@ -1,11 +1,13 @@
 require_relative 'player_statistics'
 
 class Player
+  STARTING_SNAKE_LENGTH = 4
+
   attr_reader :snake
   def initialize(id, keys, emojii)
     @id = id
     @keys = keys
-    @snake = Snake.new(emojii)
+    @snake = Snake.new(emojii, STARTING_SNAKE_LENGTH)
     @stats = PlayerStatistics.default
     @power_ups = []
     on_keys
