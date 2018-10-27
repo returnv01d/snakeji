@@ -1,7 +1,7 @@
 require_relative '../utility/string.rb'
 require_relative '../utility/utility.rb'
 require 'json'
-CONFIG_FILE_PATH = "#{$LOAD_PATH[0]}/snakeji/config.json".freeze
+CONFIG_FILE_PATH = "#{$LOAD_PATH.select{|path| path.end_with?('lib')}.first}/snakeji/config.json".freeze
 
 class GameModel
   attr_accessor :model
