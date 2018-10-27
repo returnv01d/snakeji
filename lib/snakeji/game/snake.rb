@@ -3,19 +3,18 @@ require 'snakeji/models/game_model'
 require 'snakeji/game/direction'
 
 class Snake
-  NUMBER_OF_PARTS = 4
   DEFAULT_PART_PATH = GameModel.model['GAME']['REGULAR_EMOJII_PATH']
 
   attr_reader :direction
-  def initialize path
+  def initialize (path, starting_length)
     @direction = Direction.random
-    @parts = create_parts path
+    @parts = create_parts path, starting_length
   end
 
-  def create_parts path
+  def create_parts (path, starting_length)
     parts = []
     parts << SnakePart.new(path, @direction)
-    NUMBER_OF_PARTS.times do
+    starting_length.times do
       parts << SnakePart.new(DEFAULT_PART_PATH, @direction)
     end
     parts
@@ -45,11 +44,28 @@ class Snake
     @parts.each do |part|
       return true if part.out_of_window?
     end
+
     false
   end
 
   def length
     @parts.count * @parts[0].width
+  end
+
+  def contains_snake?(other)
+    @parts.each do |part|
+      return true if other.contains?(part)
+    end
+
+    false
+  end
+
+  def contains?(other)
+    @parts.each do |part|
+      return true if part.contains?(other)
+    end
+
+    false
   end
 
 end
