@@ -37,13 +37,19 @@ class Game
 
   def draw_snakes
     @players.each do |player|
+      collides_with_other_snake = false
       other_players = @players - [player]
       other_players_snakes = other_players.collect(&:snake)
       loop do
         spawn_snake(player)
-        break if !player.snake.out_of_window? && !player.snake.collides_with(other_players_snakes)
-      end
 
+        other_players_snakes.each do |other_snake|
+          collides_with_other_snake = player.snake.contains_snake?(other_snake)
+          break if collides_with_other_snake
+        end
+
+        break unless player.snake.out_of_window? || collides_with_other_snake
+      end
     end
   end
 
