@@ -6,8 +6,8 @@ class Snake
   DEFAULT_PART_PATH = GameModel.model['GAME']['REGULAR_EMOJII_PATH']
 
   attr_reader :direction
-  def initialize (path, starting_length)
-    @direction = Direction.random
+  def initialize (path, starting_length, starting_direction)
+    @direction = starting_direction
     @parts = create_parts path, starting_length
   end
 
@@ -26,6 +26,18 @@ class Snake
 
   def add
     @parts.each(&:add)
+  end
+
+  def head_vec
+    @parts[0].current_vector
+  end
+
+  def head_x
+    @parts[0].x + (head_vec[0] == 1 ? size : 0)
+  end
+
+  def head_y
+    @parts[0].y + (head_vec[1] == 1 ? size : 0)
   end
 
   def hide
