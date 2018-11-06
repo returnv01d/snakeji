@@ -1,4 +1,6 @@
-require_relative 'player_statistics'
+require 'snakeji/game/player_statistics'
+require 'snakeji/game/turn_point'
+require 'snakeji/game/direction'
 
 class Player
   STARTING_SNAKE_LENGTH = 4
@@ -7,9 +9,10 @@ class Player
   def initialize(id, keys, emojii)
     @id = id
     @keys = keys
-    @snake = Snake.new(emojii, STARTING_SNAKE_LENGTH)
+    @snake = Snake.new(emojii, STARTING_SNAKE_LENGTH, Direction.random)
     @stats = PlayerStatistics.default
     @power_ups = []
+    @turn_points = []
     on_keys
   end
 
@@ -25,14 +28,24 @@ class Player
     Application.on :key_down do |e|
       case e.key
         when @keys['UP']
-          puts 'up'
+          make_turn_point(Direction.up)
         when @keys['DOWN']
-          puts 'dwon'
+          make_turn_point(Direction.down)
         when @keys['LEFT']
-          puts 'left'
+          make_turn_point(Direction.left)
         when @keys['RIGHT']
-          puts 'right'
+          make_turn_point(Direction.right)
       end
     end
+  end
+
+  def make_turn_point(new_direction)
+    return unless Direction.is_opposite?(@snake.head_vec, new_direction)
+
+    turn_point_x = @snake.head_x - (@snake.head_vec[0] == -1 ? @snake.size : 0)
+    turn_point_y = @snake.head_y - (@snake.head_vec[1] == -1 ? @snake.size : 0)
+
+    @turn_points << TurnPoint.new(new_direction)
+                             .draw(turn_point_x, turn_point_y)
   end
 end
