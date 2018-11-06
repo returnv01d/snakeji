@@ -40,10 +40,12 @@ class Player
   end
 
   def make_turn_point(new_direction)
-    return unless Direction.is_opposite?(@snake.head_vec, new_direction)
+    current_snake_direction = @snake.head_vec
+    return if Direction.is_opposite?(current_snake_direction, new_direction) ||
+        current_snake_direction == new_direction
 
-    turn_point_x = @snake.head_x - (@snake.head_vec[0] == -1 ? @snake.size : 0)
-    turn_point_y = @snake.head_y - (@snake.head_vec[1] == -1 ? @snake.size : 0)
+    turn_point_x = @snake.head_x - (current_snake_direction[0] == -1 ? @snake.size : 0)
+    turn_point_y = @snake.head_y - (current_snake_direction[1] == -1 ? @snake.size : 0)
 
     @turn_points << TurnPoint.new(new_direction)
                              .draw(turn_point_x, turn_point_y)
