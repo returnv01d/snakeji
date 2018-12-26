@@ -14,13 +14,27 @@ class Game
     @window_height = GameModel.model['GAME']['WINDOW_HEIGHT'] = window_height
     @players = create_players(number_of_players, players_keys, players_emojiis)
     draw_snakes
+    @paused = false
+    @game_time = 0
+    @debug_speed = 1
     create_view(window_width, window_height)
   end
 
   def update
     Application.update do
-      puts 'update game'
-      @players.each(&:update)
+      if (@game_time % @debug_speed).zero?
+        unless @paused
+          @players.each do |player|
+            player.update
+            if player.snake.out_of_window? || player.snake.contains_self?
+              #puts "Removing player #{player.__id__}"
+              player.remove
+            end
+          end
+        end
+
+      end
+      @game_time += 1
     end
 
   end
@@ -64,10 +78,20 @@ class Game
   end
 
   def show!
+    on_keys
     update
     Application.show
   end
 
-
+  def on_keys
+    Application.on :key_down do |e|
+      case e.key
+        when 'b'
+          @paused = !@paused
+        when 'n'
+          @debug_speed = 10
+      end
+    end
+  end
 end
 
