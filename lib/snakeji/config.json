@@ -1,5 +1,6 @@
 {
   "GAME": {
+    "REGULAR_EMOJII_PATH": "neutral",
     "SNAKE_TURN_COOLDOWN": 24.0,
     "SNAKE_STARTING_SIZE": 4.0,
     "SNAKE_PART_WIDTH": 15.0,

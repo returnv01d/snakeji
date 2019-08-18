@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "snakeji"
   spec.version       = Snakeji::VERSION
   spec.authors       = ["returnv01d"]
-  spec.email         = ["bartlomiej.winiarski88@gmail.com"]
+  spec.email         = ["b.winiarski97@gmail.com"]
 
   spec.summary       = %q{multiplayer snake game}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/returnv01d/snakeji"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -26,6 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "ruby2d", "= 0.5.0"
-  spec.add_development_dependency "win32-process"
+  spec.add_development_dependency "ruby2d", "= 0.9.0"
 end

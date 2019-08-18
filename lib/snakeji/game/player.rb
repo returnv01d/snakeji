@@ -1,16 +1,19 @@
-require_relative 'player_statistics'
+require 'snakeji/game/player_statistics'
+require 'snakeji/game/turn_point'
+require 'snakeji/game/direction'
 
 class Player
   STARTING_SNAKE_LENGTH = 4
-
-  attr_reader :snake
+  TURN_COOLDOWN = 20
+  attr_reader :snake, :stats
   def initialize(id, keys, emojii)
     @id = id
     @keys = keys
-    @snake = Snake.new(emojii, STARTING_SNAKE_LENGTH)
     @stats = PlayerStatistics.default
+    @snake = Snake.new(emojii, STARTING_SNAKE_LENGTH, Direction.random, self)
     @power_ups = []
     on_keys
+    @turn_cooldown = 0
   end
 
   def draw_snake(x, y)
@@ -18,21 +21,47 @@ class Player
   end
 
   def update
-    puts 'update player'
+    @snake.update
+    @turn_cooldown -= 1
+  end
+
+  def remove
+    @snake.stop
   end
 
   def on_keys
-    Application.on :key_down do |e|
+    Window.on :key_down do |e|
       case e.key
         when @keys['UP']
-          puts 'up'
+          change_snake_direction(Direction.up)
         when @keys['DOWN']
-          puts 'dwon'
+          change_snake_direction(Direction.down)
         when @keys['LEFT']
-          puts 'left'
+          change_snake_direction(Direction.left)
         when @keys['RIGHT']
-          puts 'right'
+          change_snake_direction(Direction.right)
       end
     end
+  end
+
+  def change_snake_direction(new_direction)
+    return unless @turn_cooldown < 0
+
+    if !Direction.is_opposite?(@snake.head_vec, new_direction) || @snake.head_vec == new_direction
+      make_turn_point(new_direction)
+      @turn_cooldown = TURN_COOLDOWN
+    end
+  end
+
+  def make_turn_point(new_direction)
+    snake = @snake
+    current_snake_direction = snake.head_vec
+
+    turn_point_x = snake.head_x - (current_snake_direction[0] == -1 ? snake.size : 0)
+    turn_point_y = snake.head_y - (current_snake_direction[1] == -1 ? snake.size : 0)
+
+    turn_point = TurnPoint.new(new_direction)
+    turn_point.draw(turn_point_x, turn_point_y)
+    snake.turn_points << turn_point
   end
 end

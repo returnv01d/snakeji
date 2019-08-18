@@ -12,4 +12,8 @@ module Utility
     text.y -= text.height / 2.0
     text
   end
+
+  def self.distance_between_two_points(x1, y1, x2, y2)
+    Math.sqrt(((x1 - x2)**2) + ((y1 - y2)**2))
+  end
 end

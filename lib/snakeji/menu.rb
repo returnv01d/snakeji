@@ -73,6 +73,12 @@ class Menu
     Application.show
   end
 
+  def draw(top_left_x, top_left_y)
+    elements = [@main_panel, @button_panel]
+    VerticalAlignment.new(elements, 0)
+        .draw(top_left_x, top_left_y + @height_padding)
+  end
+
   def start_game(window_width, window_height, number_of_players, players_keys, players_emojiis)
     @main_panel = nil
     @button_panel = nil
@@ -80,9 +86,9 @@ class Menu
     Application.close
     Thread.new {
       system('ruby', 'game/game.rb',
-             window_width.to_s, window_height.to_s,
-             number_of_players.to_s,
-             players_keys.to_s, players_emojiis.to_s)
+      window_width.to_s, window_height.to_s,
+      number_of_players.to_s,
+      players_keys.to_s, players_emojiis.to_s)
     }
 
     sleep 1
@@ -93,12 +99,6 @@ class Menu
     mb = MessageBox.new(message)
     mb.add_observer(self, :activate_start_button)
     mb.show
-  end
-
-  def draw(top_left_x, top_left_y)
-    elements = [@main_panel, @button_panel]
-    VerticalAlignment.new(elements, 0)
-                     .draw(top_left_x, top_left_y + @height_padding)
   end
 end
 
