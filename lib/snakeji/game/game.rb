@@ -21,7 +21,7 @@ class Game
   end
 
   def update
-    Application.update do
+    Window.update do
       if (@game_time % @debug_speed).zero?
         unless @paused
           @players.each do |player|
@@ -73,18 +73,18 @@ class Game
   end
 
   def create_view(window_width, window_height)
-    Application.set(title: 'Snakejii', height: window_height.to_i, width: window_width.to_i)
-    Application.set(resizable: true, background: '#123456')
+    Window.set(title: 'Snakejii', height: window_height.to_i, width: window_width.to_i)
+    Window.set(resizable: true, background: '#123456')
   end
 
   def show!
     on_keys
     update
-    Application.show
+    Window.show
   end
 
   def on_keys
-    Application.on :key_down do |e|
+    Window.on :key_down do |e|
       case e.key
         when 'b'
           @paused = !@paused

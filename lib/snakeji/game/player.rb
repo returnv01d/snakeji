@@ -30,7 +30,7 @@ class Player
   end
 
   def on_keys
-    Application.on :key_down do |e|
+    Window.on :key_down do |e|
       case e.key
         when @keys['UP']
           change_snake_direction(Direction.up)
@@ -45,7 +45,9 @@ class Player
   end
 
   def change_snake_direction(new_direction)
-    if @turn_cooldown < 0
+    return unless @turn_cooldown < 0
+
+    if !Direction.is_opposite?(@snake.head_vec, new_direction) || @snake.head_vec == new_direction
       make_turn_point(new_direction)
       @turn_cooldown = TURN_COOLDOWN
     end
@@ -54,8 +56,6 @@ class Player
   def make_turn_point(new_direction)
     snake = @snake
     current_snake_direction = snake.head_vec
-    return if Direction.is_opposite?(current_snake_direction, new_direction) ||
-        current_snake_direction == new_direction
 
     turn_point_x = snake.head_x - (current_snake_direction[0] == -1 ? snake.size : 0)
     turn_point_y = snake.head_y - (current_snake_direction[1] == -1 ? snake.size : 0)
@@ -63,6 +63,5 @@ class Player
     turn_point = TurnPoint.new(new_direction)
     turn_point.draw(turn_point_x, turn_point_y)
     snake.turn_points << turn_point
-
   end
 end
