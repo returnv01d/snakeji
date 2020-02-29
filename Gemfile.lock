@@ -16,7 +16,7 @@ GEM
       sourcemap (~> 0.1.0)
     parser (2.3.3.1)
       ast (~> 2.2)
-    rake (10.5.0)
+    rake (13.0.1)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -35,11 +35,12 @@ GEM
     sourcemap (0.1.1)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
   bundler (~> 1.16)
-  rake (~> 10.0)
+  rake (~> 13.0)
   rspec (~> 3.0)
   ruby2d (= 0.5.0)
   snakeji!
